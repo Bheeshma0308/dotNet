@@ -1,0 +1,46 @@
+﻿@model studentdetails.Models.Studentviewmodel
+@{
+    ViewData["Title"] = "Create student";
+    var errorMessage = TempData["errorMesage"]?.ToString();
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(@errorMessage)){
+<div class="alert alert-danger">
+    <strong>Error!</strong>@errorMessage
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+</div>
+}
+<form action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Id</label>
+        <input type="number" class="form-control" asp-for="Id" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">FName</label>
+        <input type="text" class="form-control" asp-for="FName" />
+        <span asp-validation-for="FName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">LName</label>
+        <input type="text" class="form-control" asp-for="LName" />
+        <span asp-validation-for="LName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">DOB</label>
+        <input type="date" class="form-control" asp-for="DOB" />
+        <span asp-validation-for="DOB" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">address</label>
+        <input type="text" class="form-control" asp-for="address" />
+        <span asp-validation-for="address" class="text-danger"></span>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">
+            submit
+        </button>
+    </div>
+</form>

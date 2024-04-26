@@ -1,0 +1,76 @@
+﻿@model List<studentdetails.Models.Studentviewmodel>
+@{
+        ViewData["Title"] = "Student details";
+        var successMessage = TempData["successMessage"]?.ToString();
+        var errorMessage = TempData["errorMessage"]?.ToString();
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if(!string.IsNullOrWhiteSpace(@successMessage)){
+    <div class="alert alert-success">
+        <strong>Success!</strong>@successMessage
+    </div>
+    <button type="button" class="btn-close float-end" data-bs-dismiss="Alert"></button>
+}
+else if(!string.IsNullOrWhiteSpace (@errorMessage)){
+<div class="alert alert-danger">
+    <strong>Error!</strong>@errorMessage
+</div>
+<button type="button" class="btn-close float-end" data-bs-dismiss="Alert"></button>
+}
+<form>
+    <button asp-action="Create" class="btn btn-primary mb-3">Create Student</button>
+    <table class="table-responsive table-hover table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date-of-Birth</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>
+                            @student.Id
+                        </td>
+                        <td>
+                            @student.fullname
+                        </td>
+                        <td>
+                            @student.DOB
+                        </td>
+                        <td>
+                            @student.address
+                        </td>
+
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Student" asp-action="Edit" asp-route-Id="@student.Id"
+                                   class="btn btn-primary">Edit</a>
+                                <a asp-controller="Student" asp-action="Delete" asp-route-Id="@student.Id"
+                                   class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        <div>
+                            No Students available at this moment!
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
